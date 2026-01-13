@@ -99,6 +99,11 @@ $result = $conn->query($sql);
                         </a>
                     </li>
                     <li class="nav-item">
+    <a class="nav-link" href="admin_testimoni.php">
+        <i class="fas fa-comments"></i> Kelola Testimoni
+    </a>
+</li>
+                    <li class="nav-item">
                         <a class="nav-link" href="logout.php">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </a>

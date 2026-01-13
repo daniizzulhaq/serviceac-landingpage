@@ -6,6 +6,9 @@ $sql = "SELECT * FROM pricing ORDER BY urutan ASC";
 $result = $conn->query($sql);
 $sql_lokasi = "SELECT * FROM lokasi WHERE status = 1 ORDER BY urutan ASC";
 $result_lokasi = $conn->query($sql_lokasi);
+
+$sql_testimoni = "SELECT * FROM testimoni WHERE status = 1 ORDER BY urutan ASC LIMIT 6";
+$result_testimoni = $conn->query($sql_testimoni);
 ?>
 
 <!DOCTYPE html>
@@ -680,6 +683,101 @@ $result_lokasi = $conn->query($sql_lokasi);
             color: #666;
             line-height: 1.7;
         }
+
+        .testimoni-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimoni-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center no-repeat;
+    background-size: cover;
+}
+
+.testimoni-section .section-title {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.testimoni-section .section-subtitle {
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 50px;
+}
+
+.testimoni-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+}
+
+.testimoni-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.testimoni-card::before {
+    content: '"';
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    font-size: 60px;
+    color: #667eea;
+    opacity: 0.2;
+    font-family: Georgia, serif;
+}
+
+.testimoni-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.testimoni-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #667eea;
+    margin-right: 15px;
+}
+
+.testimoni-info h5 {
+    margin: 0;
+    color: #333;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.testimoni-info p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.testimoni-rating {
+    color: #ffc107;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.testimoni-text {
+    color: #555;
+    line-height: 1.8;
+    font-size: 15px;
+    font-style: italic;
+}
         
         /* Footer */
         footer {
@@ -791,49 +889,7 @@ $result_lokasi = $conn->query($sql_lokasi);
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-number" data-target="5000">0</div>
-                        <div class="stat-label">Pelanggan Puas</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <div class="stat-number" data-target="15">0</div>
-                        <div class="stat-label">Tahun Pengalaman</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="stat-number" data-target="25">0</div>
-                        <div class="stat-label">Teknisi Ahli</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="stat-number">4.9</div>
-                        <div class="stat-label">Rating Layanan</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   
 
     <!-- Services Section -->
     <section id="layanan">
@@ -1134,6 +1190,48 @@ $result_lokasi = $conn->query($sql_lokasi);
             </div>
         </div>
     </section>
+
+    <!-- Section Testimoni -->
+<section class="testimoni-section" id="testimoni">
+    <div class="container position-relative">
+        <h2 class="text-center section-title">Testimoni Pelanggan</h2>
+        <p class="text-center section-subtitle">Apa kata mereka tentang layanan kami</p>
+        
+        <div class="row g-4">
+            <?php if ($result_testimoni->num_rows > 0): ?>
+                <?php while ($testi = $result_testimoni->fetch_assoc()): ?>
+                <div class="col-md-4">
+                    <div class="testimoni-card">
+                        <div class="testimoni-header">
+                            <img src="admin/uploads/<?= htmlspecialchars($testi['foto']) ?>" 
+                                 alt="<?= htmlspecialchars($testi['nama_pelanggan']) ?>" 
+                                 class="testimoni-avatar">
+                            <div class="testimoni-info">
+                                <h5><?= htmlspecialchars($testi['nama_pelanggan']) ?></h5>
+                                <p><?= htmlspecialchars($testi['profesi']) ?></p>
+                            </div>
+                        </div>
+                        
+                        <div class="testimoni-rating">
+                            <?php for($i = 0; $i < $testi['rating']; $i++): ?>
+                                ⭐
+                            <?php endfor; ?>
+                        </div>
+                        
+                        <p class="testimoni-text">
+                            "<?= htmlspecialchars($testi['testimoni']) ?>"
+                        </p>
+                    </div>
+                </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="col-12">
+                    <p class="text-center text-white">Belum ada testimoni tersedia.</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
 
     <!-- Contact Section -->
     <section id="contact">
