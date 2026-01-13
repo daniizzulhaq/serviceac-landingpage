@@ -118,6 +118,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <i class="fas fa-sign-in-alt"></i> Login
             </button>
         </form>
+        
+        <div class="text-center mt-3">
+            <small class="text-muted"></small>
+        </div>
     </div>
 </body>
 </html>
